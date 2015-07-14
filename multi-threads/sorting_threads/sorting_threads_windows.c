@@ -4,8 +4,14 @@
 #include <process.h>
 #include <math.h>
 
+void foo();
+void sort_and_show();
+bool hasValue(int array[], int value);
+
 bool alive;
 int thread_array[6], index_array;
+void *function_array[5] = {foo, foo, foo, foo, foo};
+void create_thread(void *function);
 
 void sort_and_show() {
   int i, j, swap;
@@ -66,13 +72,13 @@ int main(int argc, char const *argv[]){
   index_array = 0;
 
   do{
-    create_thread(foo);
+    create_thread(function_array[index_array]);
   } while( index_array < 5 );
-  
+
   create_thread(sort_and_show);
 
   while(alive);
 
   system("PAUSE");
   return 0;
-} 
+}
